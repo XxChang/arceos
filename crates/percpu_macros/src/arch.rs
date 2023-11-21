@@ -23,6 +23,9 @@ pub fn gen_offset(symbol: &Ident) -> proc_macro2::TokenStream {
             #[cfg(target_arch = "aarch64")]
             ::core::arch::asm!(
                 "movz {0}, #:abs_g0_nc:{VAR}",
+                "movk {0}, #:abs_g1_nc:{VAR}",
+                "movk {0}, #:abs_g2_nc:{VAR}",
+                "movk {0}, #:abs_g3:{VAR}",
                 out(reg) value,
                 VAR = sym #symbol,
             );
@@ -32,6 +35,12 @@ pub fn gen_offset(symbol: &Ident) -> proc_macro2::TokenStream {
                 "addi {0}, {0}, %lo({VAR})",
                 out(reg) value,
                 VAR = sym #symbol,
+            );
+            #[cfg(target_arch = "arm")]
+            ::core::arch::asm!(
+                "ldr, {0}, ={VAR}",
+                out(reg) value,
+                VAR = sym #symbol
             );
         }
         value
