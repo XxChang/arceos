@@ -1,0 +1,9 @@
+arch = "arm"
+
+platform = "armv7a-qemu-virt"
+
+kernel-base-vaddr = "0x10000"
+
+family = "armv7a-qemu-virt"
+
+uart-paddr = "0x101F_1000"

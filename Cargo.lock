@@ -478,7 +478,6 @@ dependencies = [
 name = "axsync"
 version = "0.1.0"
 dependencies = [
- "axsync",
  "axtask",
  "rand",
  "spinlock",

@@ -19,5 +19,5 @@ axtask = { path = "../axtask" }
 
 [dev-dependencies]
 rand = "0.8"
-axsync = { path = ".", features = ["multitask"] }
+# axsync = { path = ".", features = ["multitask"] }
 axtask = { path = "../axtask", features = ["test"] }

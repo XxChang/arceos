@@ -1,6 +1,10 @@
 # QEMU arguments
 
+ifeq ($(ARCH), armv7a)
+QEMU := qemu-system-arm
+else
 QEMU := qemu-system-$(ARCH)
+endif
 
 ifeq ($(BUS), mmio)
   vdev-suffix := device
@@ -22,6 +26,11 @@ qemu_args-riscv64 := \
 qemu_args-aarch64 := \
   -cpu cortex-a72 \
   -machine virt \
+  -kernel $(OUT_BIN)
+
+qemu_args-armv7a := \
+  -cpu cortex-a8 \
+  -machine versatilepb \
   -kernel $(OUT_BIN)
 
 qemu_args-y := -m 128M -smp $(SMP) $(qemu_args-$(ARCH))

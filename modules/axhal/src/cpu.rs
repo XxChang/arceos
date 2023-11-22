@@ -45,6 +45,12 @@ pub fn current_task_ptr<T>() -> *const T {
         use tock_registers::interfaces::Readable;
         aarch64_cpu::registers::SP_EL0.get() as _
     }
+    #[cfg(target_arch = "arm")]
+    {
+        // use core::arch::asm;
+        todo!()
+        // let value: usize;
+    }
 }
 
 /// Sets the pointer to the current task with preemption-safety.
