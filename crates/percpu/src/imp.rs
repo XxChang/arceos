@@ -75,7 +75,7 @@ pub fn get_local_thread_pointer() -> usize {
             } else if #[cfg(target_arch = "aarch64")] {
                 core::arch::asm!("mrs {}, TPIDR_EL1", out(reg) tp)
             } else if #[cfg(target_arch = "arm")] {
-                core::arch::asm!("mrs {}, TPIDRPRW", out(reg) tp)
+                core::arch::asm!("mrc p15, 0, {}, c13, c0, 4", out(reg) tp)
             }
         }
     }
@@ -111,7 +111,7 @@ pub fn set_local_thread_pointer(cpu_id: usize) {
             } else if #[cfg(target_arch = "aarch64")] {
                 core::arch::asm!("msr TPIDR_EL1, {}", in(reg) tp)
             } else if #[cfg(target_arch = "arm")] {
-                core::arch::asm!("msr TPIDRPRW, {}", in(reg) tp)
+                core::arch::asm!("mcr p15, 0, {}, c13, c0, 4", in(reg) tp)
             }
         }
     }

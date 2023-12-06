@@ -26,8 +26,19 @@ pub mod console {
 pub mod misc {
 
 pub fn terminate() -> ! {
+    // https://wiki.osdev.org/Shutdown
+    unsafe {
+        ::core::arch::asm!(
+        "
+        mov r0, #1
+        mcr p15, 0, r0, c15, c2, 0
+        ",
+        options(nostack, nomem, preserves_flags),
+        );
+    }
+    crate::arch::halt();
     loop {
-        
+       crate::arch::halt(); 
     }
 }
 

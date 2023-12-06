@@ -136,7 +136,7 @@ pub extern "C" fn rust_main(cpu_id: usize, dtb: usize) -> ! {
             r.flags
         );
     }
-
+    
     #[cfg(feature = "alloc")]
     init_allocator();
 
