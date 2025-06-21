@@ -79,7 +79,8 @@ qemu_args-$(GRAPHIC) += \
   -serial mon:stdio
 
 ifeq ($(GRAPHIC), n)
-  qemu_args-y += -nographic
+  # qemu_args-y += -nographic
+  qemu_args-y += -serial stdio
 endif
 
 ifeq ($(QEMU_LOG), y)

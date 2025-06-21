@@ -20,6 +20,10 @@ pub mod misc {
     pub use crate::platform::aarch64_common::psci::system_off as terminate;
 }
 
+pub mod gpio {
+    pub use crate::platform::aarch64_common::pl061::*;
+}
+
 unsafe extern "C" {
     fn rust_main(cpu_id: usize, dtb: usize);
     #[cfg(feature = "smp")]
@@ -50,6 +54,7 @@ pub fn platform_init() {
     super::aarch64_common::gic::init_primary();
     super::aarch64_common::generic_timer::init_percpu();
     super::aarch64_common::pl011::init();
+    super::aarch64_common::pl061::init();
 }
 
 /// Initializes the platform devices for secondary CPUs.
