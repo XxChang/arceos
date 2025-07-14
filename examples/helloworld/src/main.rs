@@ -7,5 +7,4 @@ use axstd::println;
 #[cfg_attr(feature = "axstd", unsafe(no_mangle))]
 fn main() {
     println!("Hello, world!");
-    loop {}
 }

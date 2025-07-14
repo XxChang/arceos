@@ -11,4 +11,7 @@ pub mod gic;
 pub mod pl011;
 
 #[cfg(not(platform_family = "aarch64-bsta1000b"))]
+mod pl011_private;
+
+#[cfg(not(platform_family = "aarch64-bsta1000b"))]
 pub mod pl061;

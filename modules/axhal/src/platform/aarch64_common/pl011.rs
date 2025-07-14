@@ -1,6 +1,7 @@
 //! PL011 UART.
 
-use arm_pl011::Pl011Uart;
+// use arm_pl011::Pl011Uart;
+use super::pl011_private::PL011;
 use kspin::SpinNoIrq;
 use memory_addr::PhysAddr;
 
@@ -8,12 +9,12 @@ use crate::mem::phys_to_virt;
 
 const UART_BASE: PhysAddr = pa!(axconfig::devices::UART_PADDR);
 
-static UART: SpinNoIrq<Pl011Uart> =
-    SpinNoIrq::new(Pl011Uart::new(phys_to_virt(UART_BASE).as_mut_ptr()));
+static UART: SpinNoIrq<PL011> =
+    SpinNoIrq::new(PL011::new(phys_to_virt(UART_BASE).as_mut_ptr()));
 
 /// Writes a byte to the console.
 pub fn putchar(c: u8) {
-    let mut uart = UART.lock();
+    let uart = UART.lock();
     match c {
         b'\n' => {
             uart.putchar(b'\r');
@@ -25,7 +26,7 @@ pub fn putchar(c: u8) {
 
 /// Reads a byte from the console, or returns [`None`] if no input is available.
 fn getchar() -> Option<u8> {
-    UART.lock().getchar()
+    Some(UART.lock().getchar())
 }
 
 /// Write a slice of bytes to the console.
